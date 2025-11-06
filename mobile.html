@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的手机网站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .card h2 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .counter-section {
+            text-align: center;
+            background: rgba(255,255,255,0.15);
+        }
+        
+        #count {
+            font-size: 4em;
+            font-weight: bold;
+            display: block;
+            margin: 10px 0;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        button {
+            flex: 1;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 1.1em;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+        
+        button:active {
+            transform: scale(0.95);
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .feature {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .feature:active {
+            transform: scale(0.95);
+        }
+        
+        .feature-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1.1em;
+            min-height: 1.5em;
+        }
+        
+        /* 手机横屏适配 */
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            #count {
+                font-size: 3em;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* 暗色模式 */
+        body.dark-mode {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📱 我的手机网站</h1>
+            <p>专为移动端设计</p>
+        </div>
+        
+        <div class="card">
+            <h2>🎯 互动计数器</h2>
+            <div id="count">0</div>
+            <div class="buttons">
+                <button onclick="addCount()">点击 +1</button>
+                <button onclick="resetCount()">重置</button>
+            </div>
+            <div class="message" id="message">开始点击吧！</div>
+        </div>
+        
+        <div class="card">
+            <h2>✨ 特色功能</h2>
+            <div class="feature-grid">
+                <div class="feature" onclick="toggleDarkMode()">
+                    <div class="feature-icon">🌓</div>
+                    <div>暗色模式</div>
+                </div>
+                <div class="feature" onclick="showAlert('震动反馈！')">
+                    <div class="feature-icon">📳</div>
+                    <div>震动效果</div>
+                </div>
+                <div class="feature" onclick="showAlert('平滑动画！')">
+                    <div class="feature-icon">🎬</div>
+                    <div>流畅动画</div>
+                </div>
+                <div class="feature" onclick="showAlert('响应式设计！')">
+                    <div class="feature-icon">📐</div>
+                    <div>自适应布局</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>ℹ️ 关于</h2>
+            <p>这个网站专门为手机屏幕优化：</p>
+            <ul style="margin: 15px 0; padding-left: 20px;">
+                <li>大按钮方便触摸</li>
+                <li>流畅的交互动画</li>
+                <li>适配各种屏幕尺寸</li>
+                <li>现代化的玻璃形态设计</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let count = 0;
+        const messages = [
+            "开始点击吧！",
+            "加油！ 💪",
+            "太棒了！ 🎉",
+            "点击达人！ ⚡",
+            "停不下来！ 🚀",
+            "无敌了！ 👑"
+        ];
+        
+        function addCount() {
+            count++;
+            document.getElementById('count').textContent = count;
+            
+            // 每3次点击换消息
+            if (count % 3 === 0) {
+                const msgIndex = Math.min(Math.floor(count / 3), messages.length - 1);
+                document.getElementById('message').textContent = messages[msgIndex];
+            }
+            
+            // 手机震动反馈（如果支持）
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+        }
+        
+        function resetCount() {
+            count = 0;
+            document.getElementById('count').textContent = count;
+            document.getElementById('message').textContent = messages[0];
+        }
+        
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+        
+        function showAlert(text) {
+            alert(text);
+        }
+        
+        // 页面加载动画
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
